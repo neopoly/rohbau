@@ -1,4 +1,4 @@
-require 'minitest'
+require 'minitest/spec'
 
 module Rohbau
   module ItBehavesLike
