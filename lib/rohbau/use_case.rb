@@ -1,25 +1,25 @@
 require 'bound'
 
 module Rohbau
-  module UseCases
-    class UseCase
 
-      def self.call(request, input = nil)
-        args = [request]
-        args << input if input
+  class UseCase
 
-        new(*args).call
-      end
+    def self.call(request, input = nil)
+      args = [request]
+      args << input if input
 
-      def initialize(request)
-        @request = request
-      end
+      new(*args).call
+    end
 
-      protected
+    def initialize(request)
+      @request = request
+    end
 
-      def service(service_name)
-        @request.services.public_send service_name
-      end
+    protected
+
+    def service(service_name)
+      @request.services.public_send service_name
     end
   end
+
 end
