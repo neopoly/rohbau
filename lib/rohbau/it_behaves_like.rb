@@ -8,7 +8,11 @@ module Rohbau
     end
 
     def it_behaves_like(spec)
-      shared_example = get_shared_example(spec)
+      if spec.kind_of? Proc
+        shared_example = spec
+      else
+        shared_example = get_shared_example(spec)
+      end
       raise "No shared spec for #{spec.inspect} found" unless shared_example
 
       instance_eval(&shared_example)
