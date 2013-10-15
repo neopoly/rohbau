@@ -1,5 +1,4 @@
 require 'minitest'
-require 'rohbau/minitest/exclude'
 
 module Rohbau
   module ItBehavesLike
@@ -20,5 +19,4 @@ end
 
 class MiniTest::Spec
   extend Rohbau::ItBehavesLike
-
 end
