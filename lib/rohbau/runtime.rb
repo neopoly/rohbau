@@ -33,10 +33,6 @@ module Rohbau
       on_boot
     end
 
-    def on_boot
-      # noop
-    end
-
     def terminate
       # noop
     end
@@ -46,6 +42,10 @@ module Rohbau
     end
 
     protected
+
+    def on_boot
+      # noop
+    end
 
     def initialize_plugins
       self.class.plugins.each do |name, plugin_class|
