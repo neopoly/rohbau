@@ -2,7 +2,7 @@ module Rohbau
   class Request
 
     def initialize(runtime)
-      raise "No Runtime instanciated" unless runtime
+      raise "No Runtime instanciated (#{self.inspect})" unless runtime
       @runtime = runtime
     end
 
