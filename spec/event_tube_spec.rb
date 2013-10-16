@@ -45,4 +45,19 @@ describe Rohbau::EventTube do
     end
   end
 
+  describe 'reset' do
+    before do
+      @calls = []
+      tube.subscribe :my_event do |event|
+        @calls << event
+      end
+    end
+
+    it 'does nothin on publish' do
+      tube.reset
+      tube.publish :my_event, event
+      assert_equal [], @calls
+    end
+  end
+
 end

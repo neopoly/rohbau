@@ -1,5 +1,8 @@
 module Rohbau
   class EventTube
+    def self.reset
+      @subscriptions = nil
+    end
     def self.publish(name, event)
       subscription_handler.handle(name, event)
     end
