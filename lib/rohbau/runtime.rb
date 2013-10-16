@@ -25,7 +25,7 @@ module Rohbau
     end
 
     def self.plugins
-      @@plugins ||= {}
+      @plugins ||= {}
     end
 
     def initialize
