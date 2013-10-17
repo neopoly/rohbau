@@ -29,8 +29,8 @@ module Rohbau
     end
 
     def initialize
-      initialize_plugins
       on_boot
+      initialize_plugins
     end
 
     def terminate
