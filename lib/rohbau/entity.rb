@@ -27,7 +27,8 @@ module Rohbau
 
     def ==(other)
       other && __attributes__.all? do |attr|
-        self.public_send(attr) == other.public_send(attr)
+        other.respond_to?(attr) &&
+          self.public_send(attr) == other.public_send(attr)
       end
     end
 
