@@ -2,7 +2,19 @@ module Rohbau
   class RuntimeLoader
 
     class << self
-      attr_reader :instance
+      def instance
+        @instance
+      end
+
+      def running?
+        !!instance
+      end
+
+      def terminate
+        instance.terminate if instance.respond_to? :terminate
+        remove_instance_variable :@instance
+      end
+
     end
 
     def initialize(runtime)
@@ -11,6 +23,7 @@ module Rohbau
         assign_to_singleton(instance)
       end
     end
+
 
     private
     def ensure_singleton_is_unassigned!
