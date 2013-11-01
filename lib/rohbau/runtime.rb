@@ -6,7 +6,16 @@ module Rohbau
       attr_reader :instance
 
       def start
-        @instance = new
+        set_instance = proc do |instance|
+          @instance = instance
+        end
+
+        self.send :define_method, :initialize do |*args|
+          set_instance.call(self)
+          super(*args)
+        end
+
+        new
       end
 
       def running?
@@ -53,7 +62,7 @@ module Rohbau
 
     def initialize_plugins
       self.class.plugins.each do |name, plugin_class|
-        instance_variable_set :"@#{name}", plugin_class.new(self)
+        instance_variable_set :"@#{name}", plugin_class.new
       end
     end
 
