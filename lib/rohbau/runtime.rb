@@ -33,10 +33,6 @@ module Rohbau
       plugins[name] = plugin_class
     end
 
-    def self.delete(name)
-      plugins.delete(name)
-    end
-
     def self.plugins
       @plugins ||= {}
     end
