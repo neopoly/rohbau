@@ -44,7 +44,7 @@ module Rohbau
     end
 
     def terminate
-      # noop
+      terminate_plugins
     end
 
     def root
@@ -60,6 +60,13 @@ module Rohbau
     def initialize_plugins
       self.class.plugins.each do |name, plugin_class|
         instance_variable_set :"@#{name}", plugin_class.new
+      end
+    end
+
+    def terminate_plugins
+      self.class.plugins.each do |name, _|
+        plugin = public_send(name)
+        plugin.terminate if plugin.respond_to? :terminate
       end
     end
 
