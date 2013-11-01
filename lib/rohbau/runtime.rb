@@ -2,33 +2,6 @@ require 'pathname'
 
 module Rohbau
   class Runtime
-    class << self
-      attr_reader :instance
-
-      def start
-        raise "Don't use Runtime.start, you should use a RuntimeLoader"
-        set_instance = proc do |instance|
-          @instance = instance
-        end
-
-        self.send :define_method, :initialize do |*args|
-          set_instance.call(self)
-          super(*args)
-        end
-
-        new
-      end
-
-      def running?
-        !!@instance
-      end
-
-      def terminate
-        @instance.terminate
-        @instance = nil
-      end
-    end
-
     def self.register(name, plugin_class)
       attr_reader name
       plugins[name] = plugin_class
