@@ -15,6 +15,10 @@ module Rohbau
         remove_instance_variable :@instance
       end
 
+      def new(*args)
+        super(*args)
+        self
+      end
     end
 
     def initialize(runtime)
