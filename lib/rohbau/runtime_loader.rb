@@ -28,7 +28,7 @@ module Rohbau
     private
     def ensure_singleton_is_unassigned!
       if singleton_assigned?
-        msg = "Runtime already initialized: #{singleton.inspect}"
+        msg = "#{self.class}: Runtime already initialized: #{singleton.inspect}"
         raise RuntimeError, msg
       end
     end
