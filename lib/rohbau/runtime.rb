@@ -6,6 +6,7 @@ module Rohbau
       attr_reader :instance
 
       def start
+        raise "Don't use Runtime.start, you should use a RuntimeLoader"
         set_instance = proc do |instance|
           @instance = instance
         end
