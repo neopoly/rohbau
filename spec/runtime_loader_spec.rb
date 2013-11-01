@@ -11,7 +11,7 @@ describe Rohbau::RuntimeLoader do
   end
 
   before do
-    my_runtime_loader.new(ExampleClass)
+    @initializer_result = my_runtime_loader.new(ExampleClass)
   end
 
   it 'starts up a given class' do
@@ -20,6 +20,10 @@ describe Rohbau::RuntimeLoader do
 
   it 'has a running predicate after init' do
     assert_predicate my_runtime_loader, :running?
+  end
+
+  it 'returns the loader class on new' do
+    assert_equal my_runtime_loader, @initializer_result
   end
 
   describe 'termination' do
@@ -40,6 +44,11 @@ describe Rohbau::RuntimeLoader do
       my_runtime_loader.terminate
 
       assert mocked_instance.verify
+    end
+
+    it 'is initializeable after termination' do
+      my_runtime_loader.terminate
+      my_runtime_loader.new(ExampleClass)
     end
   end
 
