@@ -7,7 +7,9 @@ module Rohbau
 
     def initialize(runtime)
       ensure_singleton_is_unassigned!
-      assign_to_singleton(runtime.new)
+      initialize_with_immediate_callback runtime do |instance|
+        assign_to_singleton(instance)
+      end
     end
 
     private
@@ -24,6 +26,15 @@ module Rohbau
 
     def singleton
       self.class.instance_variable_get singleton_variable
+    end
+
+    def initialize_with_immediate_callback(cls, &callback)
+      cls.send :define_method, :initialize do |*args|
+        callback.call(self)
+        super(*args)
+      end
+
+      cls.new
     end
 
     def assign_to_singleton(instance)
