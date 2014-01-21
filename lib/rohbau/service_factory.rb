@@ -10,9 +10,13 @@ module Rohbau
     end
 
     def self.external_dependencies_complied?
-        external_dependencies.all? do |dependency|
-          registrations.include? dependency
-        end
+      missing_dependencies.empty?
+    end
+
+    def self.missing_dependencies
+      external_dependencies.reject do |dependency|
+        registrations.include? dependency
+      end
     end
 
     def self.external_dependencies(*dependencies)
