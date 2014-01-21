@@ -14,11 +14,16 @@ module Rohbau
 
     module ExternalInterface
       def register(service_name, &constructor)
+        registrations << service_name
         self.send :define_method, service_name do
           cache service_name do
             instance_eval(&constructor)
           end
         end
+      end
+
+      def registrations
+        @registrations ||= []
       end
     end
   end

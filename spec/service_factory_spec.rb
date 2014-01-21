@@ -19,6 +19,33 @@ describe Rohbau::ServiceFactory do
     assert_match(/Runtime/, raised.message)
   end
 
+  describe 'external dependency compliance' do
+    it 'is reached if there are none' do
+      assert_predicate factory_class, :external_dependencies_complied?
+    end
+
+    describe 'with external dependencies' do
+      before do
+        factory_class.external_dependencies :service1, :service2
+      end
+
+      it 'is not reached without any registered external service' do
+        refute_predicate factory_class, :external_dependencies_complied?
+      end
+
+      it 'is not reached with partially registers services' do
+        factory_class.register(:service1) {  }
+        refute_predicate factory_class, :external_dependencies_complied?
+      end
+
+      it 'is reached if all required dependencies are registered' do
+        factory_class.register(:service1) {  }
+        factory_class.register(:service2) {  }
+        assert_predicate factory_class, :external_dependencies_complied?
+      end
+    end
+  end
+
   describe 'service registration' do
     before do
       factory_class.register :test_service do
