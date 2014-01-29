@@ -6,7 +6,7 @@ module Rohbau
 
     def self.for(name, &block)
       @shared_specs ||= {}
-      @shared_specs[name] = new(&block)
+      @shared_specs[name] = Proc.new(&block)
     end
 
     def self.get(name)
