@@ -14,6 +14,32 @@ module Rohbau
       @shared_specs[name]
     end
 
+    def self.inherited(child_class)
+      SpecIndex.register child_class
+    end
+
+    class SpecIndex
+      def self.reset
+        @specs = []
+      end
+
+      def self.register(shared_spec_class)
+        reset unless @specs
+        @specs << shared_spec_class
+      end
+
+      def self.all
+        @specs.dup
+      end
+
+      def self.get(name)
+        @specs.each do |spec|
+          found = spec.get(name)
+          return found if found
+        end
+        nil
+      end
+    end
   end
 end
 
