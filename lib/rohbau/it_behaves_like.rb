@@ -3,8 +3,8 @@ require 'minitest/spec'
 module Rohbau
   module ItBehavesLike
 
-    def get_shared_example(spec)
-      shared_specs_namespace::SharedSpec.get(spec)
+    def get_shared_example(spec_name)
+      Rohbau::SharedSpec::SpecIndex.get spec_name
     end
 
     def it_behaves_like(spec)
