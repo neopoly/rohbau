@@ -261,7 +261,7 @@ module Rohbau
           end
         end
 
-        it 'raises an erro if uid is not known' do
+        it 'raises an error if uid is not known' do
           assert_raises ArgumentError do
             subject.bulk_delete(['22'])
           end
