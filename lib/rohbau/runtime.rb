@@ -14,6 +14,7 @@ module Rohbau
     def initialize
       on_boot
       initialize_plugins
+      after_boot
     end
 
     def terminate
@@ -29,6 +30,11 @@ module Rohbau
     def on_boot
       # noop
     end
+
+    def after_boot
+      # noop
+    end
+
 
     def initialize_plugins
       self.class.plugins.each do |name, plugin_class|
