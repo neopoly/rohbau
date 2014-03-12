@@ -42,6 +42,15 @@ module Rohbau
       end
     end
 
+    def notify_plugins(message, *args)
+      self.class.plugins.each do |name, _|
+        plugin = public_send(name)
+        if plugin.instance.respond_to? message
+          plugin.instance.public_send(message, *args)
+        end
+      end
+    end
+
     def terminate_plugins
       self.class.plugins.each do |name, _|
         plugin = public_send(name)
