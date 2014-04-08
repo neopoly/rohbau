@@ -19,6 +19,7 @@ module Rohbau
 
     def terminate
       terminate_plugins
+      after_termination
     end
 
     def root
@@ -33,6 +34,9 @@ module Rohbau
 
     def after_boot
       # noop
+    end
+
+    def after_termination
     end
 
 
