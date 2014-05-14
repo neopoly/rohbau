@@ -62,5 +62,26 @@ module Rohbau
       end
     end
 
+    def handle_transaction(&block)
+      if transaction_handling_plugin
+        transaction_handling_plugin.transaction_handler(&block)
+      else
+        block.call
+      end
+    end
+
+    def transaction_handling_plugin
+      return @handling_plugin if defined? @handling_plugin
+
+      plugin = self.class.plugins.detect do |_, runtime_loader|
+        runtime_loader.instance.respond_to? :transaction_handler
+      end
+      if plugin
+        @handling_plugin = plugin[1].instance
+      else
+        @handling_plugin = nil
+      end
+    end
+
   end
 end
