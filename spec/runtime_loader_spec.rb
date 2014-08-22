@@ -52,12 +52,12 @@ describe Rohbau::RuntimeLoader do
     end
   end
 
-  it 'fails if it was already instanciated' do
-    raised = assert_raises RuntimeError do
-      my_runtime_loader.new(ExampleClass)
-    end
+  it 'does not instanciate twice' do
+    instance = my_runtime_loader.instance
 
-    assert_match(/already/, raised.message)
+    my_runtime_loader.new(ExampleClass)
+
+    assert_same instance, my_runtime_loader.instance
   end
 
 

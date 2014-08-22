@@ -22,7 +22,7 @@ module Rohbau
     end
 
     def initialize(runtime)
-      ensure_singleton_is_unassigned!
+      return if singleton_assigned?
       initialize_with_immediate_callback runtime do |instance|
         assign_to_singleton(instance)
       end
@@ -30,13 +30,6 @@ module Rohbau
 
 
     private
-    def ensure_singleton_is_unassigned!
-      if singleton_assigned?
-        msg = "#{self.class}: Runtime already initialized: #{singleton.inspect}"
-        raise RuntimeError, msg
-      end
-    end
-
     def singleton_assigned?
       self.class.instance_variable_defined? singleton_variable
     end
