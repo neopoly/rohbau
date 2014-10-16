@@ -11,7 +11,7 @@ module Rohbau
 
       def terminate
         instance.terminate if instance.respond_to? :terminate
-        remove_instance_variable :@instance
+        remove_instance_variable :@instance if defined? @instance
       end
 
       def new(*args)
