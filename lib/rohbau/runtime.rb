@@ -1,4 +1,5 @@
 require 'pathname'
+require 'thread_safe'
 
 module Rohbau
   class Runtime
