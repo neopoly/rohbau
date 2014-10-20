@@ -6,6 +6,7 @@ module Rohbau
     def self.register(name, plugin_class)
       attr_reader name
       plugins[name] = plugin_class
+      plugin_class.registered(self) if plugin_class.respond_to?(:registered)
     end
 
     def self.unregister(name)

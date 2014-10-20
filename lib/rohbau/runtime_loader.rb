@@ -14,6 +14,12 @@ module Rohbau
         remove_instance_variable :@instance if defined? @instance
       end
 
+      attr_accessor :registrar
+
+      def registered(registrar)
+        self.registrar = registrar
+      end
+
       def new(*args)
         super(*args)
         self
