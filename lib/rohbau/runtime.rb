@@ -8,8 +8,8 @@ module Rohbau
       plugins[name] = plugin_class
     end
 
-    def self.unregister(name, plugin_class)
-      plugin_class.send :remove_method, name
+    def self.unregister(name)
+      remove_method name
       plugins.delete name
     end
 
