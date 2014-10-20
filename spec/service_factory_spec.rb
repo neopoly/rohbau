@@ -47,22 +47,59 @@ describe Rohbau::ServiceFactory do
   end
 
   describe 'service registration' do
-    before do
-      factory_class.register :test_service do
-        Struct.new(:a).new(22)
+    describe "with one service registered" do
+      before do
+        factory_class.register :test_service do
+          Struct.new(:a).new(22)
+        end
+      end
+
+      it 'allows access via a named method' do
+        assert_kind_of Struct, factory.test_service
+        assert_equal 22, factory.test_service.a
+      end
+
+      it 'caches service instances' do
+        identity_of_first_call = factory.test_service.object_id
+        identity_of_second_call = factory.test_service.object_id
+        assert_equal identity_of_first_call, identity_of_second_call
+      end
+
+      it "can unregister services" do
+        factory_class.unregister(:test_service)
+
+        assert_raises(NoMethodError) {factory.test_service}
+      end
+
+      describe "with more than one service registered" do
+        before do
+          factory_class.register :test_service do
+            Struct.new(:a).new(23)
+          end
+        end
+
+        it "uses the most recently defined service" do
+          assert_kind_of Struct, factory.test_service
+          refute_equal 22, factory.test_service.a
+          assert_equal 23, factory.test_service.a
+        end
+
+        it "uses the default implementation when unregistered" do
+          factory_class.unregister(:test_service)
+
+          assert_kind_of Struct, factory.test_service
+          assert_equal 22, factory.test_service.a
+        end
+
+        it "removes the service if unregistered twice" do
+          factory_class.unregister(:test_service)
+          factory_class.unregister(:test_service)
+
+          assert_raises(NoMethodError) {factory.test_service}
+        end
       end
     end
 
-    it 'allows access via a named method' do
-      assert_kind_of Struct, factory.test_service
-      assert_equal 22, factory.test_service.a
-    end
-
-    it 'caches service instances' do
-      identity_of_first_call = factory.test_service.object_id
-      identity_of_second_call = factory.test_service.object_id
-      assert_equal identity_of_first_call, identity_of_second_call
-    end
   end
 
 end
