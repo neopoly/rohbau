@@ -1,0 +1,30 @@
+#!/bin/bash
+
+if [ "$WORKSPACE" = "" -o "$JOB_NAME" = "" ]; then
+  echo "\$WORKSPACE or \$JOB_NAME missing"
+  exit 1
+fi
+
+CI_DIR="$WORKSPACE/ci"
+ROOT_DIR="$CI_DIR/.."
+GIT_DIR="$WORKSPACE/.."
+
+export CI=1
+export PROJECT="$JOB_NAME"
+export COVERAGE=1
+
+# RVM
+source "$HOME/.rvm/scripts/rvm"
+rvm use $(cat $ROOT_DIR/.ruby-version)
+
+for dep in $(grep ':path' Gemfile|tr '"' "'"|cut -d"'" -f2)
+do
+  rm -rf $GIT_DIR/$dep
+  git clone gitlab@gitlab.neopoly.de:manager2/$dep $GIT_DIR/$dep
+  cd $GIT_DIR/$dep
+  git checkout develop
+done
+
+cd $WORKSPACE
+
+bundle && bundle exec rake
