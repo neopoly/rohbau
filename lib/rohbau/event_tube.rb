@@ -16,6 +16,11 @@ module Rohbau
     end
 
     class SubscriptionHandler
+      def initialize
+        @subscriptions = Hash.new do |h,k|
+          h[k] = []
+        end
+      end
 
       def add(name, &handler)
         subscriptions[name] << handler
@@ -30,12 +35,8 @@ module Rohbau
       end
 
       private
-      def subscriptions
-        @subscriptions ||= Hash.new do |h,k|
-          h[k] = []
-        end
-      end
 
+      attr_reader :subscriptions
     end
   end
 end
