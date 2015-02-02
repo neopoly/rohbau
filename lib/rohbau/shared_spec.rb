@@ -5,17 +5,19 @@ module Rohbau
   class SharedSpec < Proc
 
     def self.for(name, &block)
-      @shared_specs ||= {}
-      @shared_specs[name] = Proc.new(&block)
+      shared_specs[name] = Proc.new(&block)
     end
 
     def self.get(name)
-      @shared_specs ||= {}
-      @shared_specs[name]
+      shared_specs[name]
     end
 
     def self.inherited(child_class)
       SpecIndex.register child_class
+    end
+
+    def self.shared_specs
+      @shared_specs ||= {}
     end
 
     class SpecIndex
