@@ -25,7 +25,7 @@ end
 
 # Register user service on my application runtime
 MyApplication::Runtime.register :user_service, UserService::RuntimeLoader
-MyApplication::Runtime.plugins[:user_service] # => {:user_service=>UserService::RuntimeLoader}
+MyApplication::Runtime.plugins # => {:user_service=>UserService::RuntimeLoader}
 
 # Runtimes are not initialized yet
 MyApplication::RuntimeLoader.instance # => nil
