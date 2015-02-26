@@ -40,24 +40,6 @@ Or install it yourself as:
 
     $ gem install rohbau
 
-## Build README
-
-Make changes to README.md.template, not to README.md
-
-Include examples with
-
-```bash
-include_example example_file_name
-```
-
-Build README.md with
-
-```bash
-  ./bin/build_readme
-```
-
-Always commit README.md.template and README.md together.
-
 ## Usage
 
 ### Runtime
@@ -95,6 +77,24 @@ MyServiceFactory.register(:user_service) { Object.new } # => :user_service
 MyServiceFactory.external_dependencies_complied? # => true 
 MyServiceFactory.missing_dependencies # => [] 
 ```
+
+## Build README
+
+Make changes to README.md.template, not to README.md
+
+Include examples with
+
+```bash
+include_example example_file_name
+```
+
+Build README.md with
+
+```bash
+  ./bin/build_readme
+```
+
+Always commit README.md.template and README.md together.
 
 ## Contributing
 
