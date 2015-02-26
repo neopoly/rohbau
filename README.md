@@ -53,8 +53,53 @@ By this a place is made where for example memories for in-memory gateway backend
 require 'rohbau/runtime'
 require 'rohbau/runtime_loader'
 
-MyRuntime = Class.new(Rohbau::Runtime)
-MyRuntimeLoad =  Class.new(Rohbau::RuntimeLoader)
+module MyApplication
+  class RuntimeLoader < Rohbau::RuntimeLoader
+    def initialize
+      super(Runtime)
+    end
+  end
+
+  class Runtime < Rohbau::Runtime
+  end
+end
+
+module UserService
+  class RuntimeLoader < Rohbau::RuntimeLoader
+    def initialize
+      super(Runtime)
+    end
+  end
+
+  class Runtime < Rohbau::Runtime
+  end
+end
+
+# Register user service on my application runtime
+MyApplication::Runtime.register :user_service, UserService::RuntimeLoader
+MyApplication::Runtime.plugins[:user_service] # => {:user_service=>UserService::RuntimeLoader}
+
+# Runtimes are not initialized yet
+MyApplication::RuntimeLoader.instance # => nil
+MyApplication::Runtime.plugins[:user_service].instance # => nil
+
+# Boot my application runtime
+MyApplication::RuntimeLoader.running? # => false
+MyApplication::RuntimeLoader.new
+MyApplication::RuntimeLoader.running? # => true
+
+# Runtimes are initialized
+MyApplication::RuntimeLoader.instance # => #<MyApplication::Runtime:0x00000000f5b8d8 @user_service=UserService::RuntimeLoader>
+MyApplication::Runtime.plugins[:user_service].instance # => #<UserService::Runtime:0x00000000b1ecc0>
+
+# Runtimes are singletons
+MyApplication::RuntimeLoader.instance === MyApplication::RuntimeLoader.instance
+MyApplication::Runtime.plugins[:user_service].instance === MyApplication::Runtime.plugins[:user_service].instance
+
+# Terminate my application runtime
+MyApplication::RuntimeLoader.terminate
+MyApplication::RuntimeLoader.running? # => false
+
 ```
 
 ### ServiceFactory
@@ -67,28 +112,7 @@ It follows partly the service locator / registry pattern.
 Register and unregister default service and override with specific service.
 
 ```ruby
-require 'rohbau/service_factory'
-
-MyServiceFactory = Class.new(Rohbau::ServiceFactory)
-
-user_service_1 = Struct.new(:users).new([:alice, :bob])
-user_service_2 = Struct.new(:users).new([:jim, :kate])
-
-runtime = Object.new
-registry = MyServiceFactory.new(runtime)
-
-MyServiceFactory.register(:user_service) { user_service_1 }
-registry.user_service.users # => [:alice, :bob]
-
-MyServiceFactory.register(:user_service) { user_service_2 }
-registry.user_service.users # => [:jim, :kate]
-
-MyServiceFactory.unregister(:user_service)
-registry.user_service.users # => [:alice, :bob]
-
-MyServiceFactory.unregister(:user_service)
-registry.user_service # => NoMethodError: undefined method `user_service'
-
+include_example service_factory
 ```
 
 Validate registered dependencies
