@@ -1,6 +1,26 @@
+[github]: https://github.com/neopoly/rohbau
+[doc]: http://rubydoc.info/github/neopoly/rohbau/master/file/README.md
+[gem]: https://rubygems.org/gems/rohbau
+[gem-badge]: https://img.shields.io/gem/v/rohbau.svg
+[travis]: https://travis-ci.org/neopoly/rohbau
+[travis-badge]: https://img.shields.io/travis/neopoly/rohbau.svg?branch=master
+[codeclimate]: https://codeclimate.com/github/neopoly/rohbau
+[codeclimate-climate-badge]: https://img.shields.io/codeclimate/github/neopoly/rohbau.svg
+[codeclimate-coverage-badge]: https://codeclimate.com/github/neopoly/rohbau/badges/coverage.svg
+[inchpages]: https://inch-ci.org/github/neopoly/rohbau
+[inchpages-badge]: https://inch-ci.org/github/neopoly/rohbau.svg?branch=master&style=flat
+
 # Rohbau
 
-TODO: Write a gem description
+[![Travis][travis-badge]][travis]
+[![Gem Version][gem-badge]][gem]
+[![Code Climate][codeclimate-climate-badge]][codeclimate]
+[![Test Coverage][codeclimate-coverage-badge]][codeclimate]
+[![Inline docs][inchpages-badge]][inchpages]
+
+[Gem][gem] |
+[Source][github] |
+[Documentation][doc]
 
 ## Installation
 
