@@ -3,8 +3,11 @@ template = $stdin.read
 examples = template.scan(/include_example (.*)/)[0]
 
 examples.each do |example|
-  replacement = File.read("examples/#{example}.rb")
-  template.gsub!(/include_example #{example}/, replacement)
+  file = "examples/#{example}.rb"
+    if File.exists?(file)
+    replacement = File.read(file)
+    template.gsub!(/include_example #{example}/, replacement)
+  end
 end
 
 $stdout.print template
