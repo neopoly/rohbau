@@ -22,6 +22,10 @@
 [Source][github] |
 [Documentation][doc]
 
+## Description
+
+Rohbau provides a set of patterns used in Domain Driven Design.
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -38,7 +42,56 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### Runtime
+
+By instantiation of the `RuntimeLoader`, an instance of the `Runtime`is created and stored as a singleton.
+Internal units of the respective component can access this instance by referring to the `RuntimeLoader`.
+By this a place is made where for example memories for in-memory gateway backend implementations can be stored.
+
+### ServiceFactory
+
+The `ServiceFactory` is considered the authority for retrieval of service instances.
+It follows partly the service locator / registry pattern.
+
+#### Examples
+
+Register and unregister default service and override with specific service.
+
+```ruby
+require 'rohbau/service_factory'
+
+MyServiceFactory = Class.new(Rohbau::ServiceFactory)
+
+user_service_1 = Struct.new(:users).new([:alice, :bob])
+user_service_2 = Struct.new(:users).new([:jim, :kate])
+
+runtime = Object.new
+registry = MyServiceFactory.new(runtime)
+
+MyServiceFactory.register(:user_service) { user_service_1 }
+registry.user_service.users # => [:alice, :bob]
+
+MyServiceFactory.register(:user_service) { user_service_2 }
+registry.user_service.users # => [:jim, :kate]
+
+registry.unregister(user_service)
+registry.user_service.users # => [:alice, :bob]
+
+registry.unregister(user_service)
+registry.user_service # => NoMethodError: undefined method `user_service'
+```
+
+Validate registered dependencies
+
+```ruby
+MyServiceFactory.external_dependencies :user_service
+MyServiceFactory.missing_dependencies # => [:user_service] 
+MyServiceFactory.external_dependencies_complied? # => false
+
+MyServiceFactory.register(:user_service) { Object.new } # => :user_service 
+MyServiceFactory.external_dependencies_complied? # => true 
+MyServiceFactory.missing_dependencies # => [] 
+```
 
 ## Contributing
 
