@@ -8,7 +8,11 @@ describe Rohbau::ServiceFactory do
   end
 
   let(:factory) do
-    factory_class.new(Object.new)
+    factory_class.new(runtime)
+  end
+
+  let(:runtime) do
+    Object.new
   end
 
   it 'needs a runtime instance to get instanciated' do
