@@ -6,9 +6,21 @@ require 'rohbau/version'
 Gem::Specification.new do |spec|
   spec.name          = "rohbau"
   spec.version       = Rohbau::VERSION
-  spec.authors       = ["Jakob Holderbaum"]
-  spec.email         = ["jh@neopoly.de"]
-  spec.summary       = %q{base classes we use in our current architecture. DRAFT!}
+  spec.authors       = [
+    "Jakob Holderbaum",
+    "Peter Suschlik",
+    "Dax Defranco",
+    "Andreas Busold",
+    "Jan Owiesniak"
+  ]
+  spec.email         = [
+    "rohbau@jakob.io",
+    "ps@neopoly.de",
+    "dd@neopoly.de",
+    "ab@neopoly.de",
+    "jo@neopoly.de"
+  ]
+  spec.summary       = %q{Provides a set of patterns used in Domain Driven Design}
   spec.homepage      = "http://www.neopoly.de/"
   spec.license       = "MIT"
 
