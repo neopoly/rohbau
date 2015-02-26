@@ -1,0 +1,1 @@
+cat README.md.template | etc/build_readme.rb > README.md
