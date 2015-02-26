@@ -14,8 +14,8 @@ registry.user_service.users # => [:alice, :bob]
 MyServiceFactory.register(:user_service) { user_service_2 }
 registry.user_service.users # => [:jim, :kate]
 
-registry.unregister(user_service)
+MyServiceFactory.unregister(:user_service)
 registry.user_service.users # => [:alice, :bob]
 
-registry.unregister(user_service)
+MyServiceFactory.unregister(:user_service)
 registry.user_service # => NoMethodError: undefined method `user_service'
