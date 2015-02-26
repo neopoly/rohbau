@@ -47,7 +47,7 @@ Make changes to README.md.template, not to README.md
 Include examples with
 
 ```bash
-include_example <example_file_name>
+include_example example_file_name
 ```
 
 Build README.md with
