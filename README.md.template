@@ -50,11 +50,7 @@ By this a place is made where for example memories for in-memory gateway backend
 
 
 ```ruby
-require 'rohbau/runtime'
-require 'rohbau/runtime_loader'
-
-MyRuntime = Class.new(Rohbau::Runtime)
-MyRuntimeLoad =  Class.new(Rohbau::RuntimeLoader)
+include_example runtime
 ```
 
 ### ServiceFactory
