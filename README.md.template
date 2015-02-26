@@ -50,7 +50,11 @@ By this a place is made where for example memories for in-memory gateway backend
 
 
 ```ruby
-include_example runtime
+require 'rohbau/runtime'
+require 'rohbau/runtime_loader'
+
+MyRuntime = Class.new(Rohbau::Runtime)
+MyRuntimeLoad =  Class.new(Rohbau::RuntimeLoader)
 ```
 
 ### ServiceFactory
@@ -69,7 +73,13 @@ include_example service_factory
 Validate registered dependencies
 
 ```ruby
-include_example service_factory_validation
+MyServiceFactory.external_dependencies :user_service
+MyServiceFactory.missing_dependencies # => [:user_service] 
+MyServiceFactory.external_dependencies_complied? # => false
+
+MyServiceFactory.register(:user_service) { Object.new } # => :user_service 
+MyServiceFactory.external_dependencies_complied? # => true 
+MyServiceFactory.missing_dependencies # => [] 
 ```
 
 ## Contributing
