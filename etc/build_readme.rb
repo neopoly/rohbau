@@ -1,6 +1,7 @@
-#!/usr/bin/ruby
+#!/usr/bin/env ruby
+
 template = $stdin.read
-examples = template.scan(/include_example (.*)/)[0]
+examples = template.scan(/include_example (.*)/).flatten
 
 examples.each do |example|
   file = "examples/#{example}.rb"
