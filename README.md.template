@@ -48,18 +48,21 @@ By instantiation of the `RuntimeLoader`, an instance of the `Runtime`is created 
 Internal units of the respective component can access this instance by referring to the `RuntimeLoader`.
 By this a place is made where for example memories for in-memory gateway backend implementations can be stored.
 
+#### Examples
+
+Inject a user service to your application
 
 ```ruby
 include_example runtime
 ```
 
-#### Registrar
+##### Registrar
 
 Every injected `RuntimeLoader` knows about it's registrar.
 In the example above `UserService::RuntimeLoader` has been injected to `MyApplication::RuntimeLoader`.
 `UserService::RuntimeLoader.registrar` therefore returns `MyApplication::RuntimeLoader`.
 
-#### List of plugins
+##### List of plugins
 
 Accordingly to the sample above `MyApplication::RuntimeLoader` knows about it's registered plugins.
 `MyApplication::RuntimeLoader.plugins` therefore returns `{:user_service => UserService::RuntimeLoader}`.
