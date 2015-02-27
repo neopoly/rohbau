@@ -102,6 +102,17 @@ MyApplication::RuntimeLoader.running? # => false
 
 ```
 
+#### Registrar
+
+Every injected `RuntimeLoader` knows about it's registrar.
+In the example above `UserService::RuntimeLoader` has been injected to `MyApplication::RuntimeLoader`.
+`UserService::RuntimeLoader.registrar` therefore returns `MyApplication::RuntimeLoader`.
+
+#### List of plugins
+
+Accordingly to the sample above `MyApplication::RuntimeLoader` knows about it's registered plugins.
+`MyApplication::RuntimeLoader.plugins` therefore returns `{:user_service => UserService::RuntimeLoader}`.
+
 ### ServiceFactory
 
 The `ServiceFactory` is considered the authority for retrieval of service instances.
