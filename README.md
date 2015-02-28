@@ -80,7 +80,12 @@ end
 
 # Register user service on my application runtime
 MyApplication::Runtime.register :user_service, UserService::RuntimeLoader
+
+# My application runtime knowns about the registered plugins
 MyApplication::Runtime.plugins # => {:user_service=>UserService::RuntimeLoader}
+
+# The registered plugin knows his registrar
+UserService::RuntimeLoader.registrar # => MyApplication::Runtime
 
 # Runtimes are not initialized yet
 MyApplication::RuntimeLoader.instance # => nil
@@ -104,17 +109,6 @@ MyApplication::RuntimeLoader.terminate
 MyApplication::RuntimeLoader.running? # => false
 
 ```
-
-##### Registrar
-
-Every injected `RuntimeLoader` knows about it's registrar.
-In the example above `UserService::RuntimeLoader` has been injected to `MyApplication::RuntimeLoader`.
-`UserService::RuntimeLoader.registrar` therefore returns `MyApplication::RuntimeLoader`.
-
-##### List of plugins
-
-Accordingly to the sample above `MyApplication::RuntimeLoader` knows about it's registered plugins.
-`MyApplication::RuntimeLoader.plugins` therefore returns `{:user_service => UserService::RuntimeLoader}`.
 
 ### ServiceFactory
 
