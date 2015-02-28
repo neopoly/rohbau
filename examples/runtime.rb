@@ -25,7 +25,12 @@ end
 
 # Register user service on my application runtime
 MyApplication::Runtime.register :user_service, UserService::RuntimeLoader
+
+# My application runtime knowns about the registered plugins
 MyApplication::Runtime.plugins # => {:user_service=>UserService::RuntimeLoader}
+
+# The registered plugin knows his registrar
+UserService::RuntimeLoader.registrar # => MyApplication::Runtime
 
 # Runtimes are not initialized yet
 MyApplication::RuntimeLoader.instance # => nil
