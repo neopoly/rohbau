@@ -95,7 +95,9 @@ include_example 'service_factory_validation'
 
 ### Request
 
-tbd
+```ruby
+include_example 'user_service/request'
+```
 
 ### Entity
 
