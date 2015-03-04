@@ -187,6 +187,8 @@ MyServiceFactory.missing_dependencies # => []
 
 It ensures an initialized runtime and builds up a new the service factory instance.
 
+`examples/user_service/request.rb`
+
 ```ruby
 require 'rohbau/request'
 require 'user_service/service_factory'

@@ -97,6 +97,8 @@ include_example 'service_factory_validation'
 
 It ensures an initialized runtime and builds up a new the service factory instance.
 
+`examples/user_service/request.rb`
+
 ```ruby
 include_example 'user_service/request'
 ```
