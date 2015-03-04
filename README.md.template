@@ -72,13 +72,7 @@ include_example service_factory
 Validate registered dependencies
 
 ```ruby
-MyServiceFactory.external_dependencies :user_service
-MyServiceFactory.missing_dependencies # => [:user_service] 
-MyServiceFactory.external_dependencies_complied? # => false
-
-MyServiceFactory.register(:user_service) { Object.new } # => :user_service 
-MyServiceFactory.external_dependencies_complied? # => true 
-MyServiceFactory.missing_dependencies # => [] 
+include_example service_factory_validation
 ```
 
 ### EventTube

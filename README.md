@@ -53,21 +53,9 @@ By this a place is made where for example memories for in-memory gateway backend
 Inject a user service to your application
 
 ```ruby
-require 'rohbau/runtime'
-require 'rohbau/runtime_loader'
+require 'user_service'
 
 module MyApplication
-  class RuntimeLoader < Rohbau::RuntimeLoader
-    def initialize
-      super(Runtime)
-    end
-  end
-
-  class Runtime < Rohbau::Runtime
-  end
-end
-
-module UserService
   class RuntimeLoader < Rohbau::RuntimeLoader
     def initialize
       super(Runtime)
@@ -147,13 +135,28 @@ registry.user_service # => NoMethodError: undefined method `user_service'
 Validate registered dependencies
 
 ```ruby
-MyServiceFactory.external_dependencies :user_service
-MyServiceFactory.missing_dependencies # => [:user_service] 
-MyServiceFactory.external_dependencies_complied? # => false
+require 'rohbau/service_factory'
 
-MyServiceFactory.register(:user_service) { Object.new } # => :user_service 
-MyServiceFactory.external_dependencies_complied? # => true 
-MyServiceFactory.missing_dependencies # => [] 
+MyServiceFactory = Class.new(Rohbau::ServiceFactory)
+
+user_service_1 = Struct.new(:users).new([:alice, :bob])
+user_service_2 = Struct.new(:users).new([:jim, :kate])
+
+runtime = Object.new
+registry = MyServiceFactory.new(runtime)
+
+MyServiceFactory.register(:user_service) { user_service_1 }
+registry.user_service.users # => [:alice, :bob]
+
+MyServiceFactory.register(:user_service) { user_service_2 }
+registry.user_service.users # => [:jim, :kate]
+
+MyServiceFactory.unregister(:user_service)
+registry.user_service.users # => [:alice, :bob]
+
+MyServiceFactory.unregister(:user_service)
+registry.user_service # => NoMethodError: undefined method `user_service'
+_validation
 ```
 
 ### EventTube
