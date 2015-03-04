@@ -75,6 +75,20 @@ Validate registered dependencies
 include_example service_factory_validation
 ```
 
+### UseCase
+
+UseCases define the interface for the end user who interacts with the system.
+
+#### Examples
+
+```ruby
+include_example user_service/create_user_use_case
+```
+
+```ruby
+include_example use_case
+```
+
 ### EventTube
 
 The `EventTube` implements the `Observer` pattern. You can subscribe to events and publish them.

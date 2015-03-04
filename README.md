@@ -159,6 +159,42 @@ registry.user_service # => NoMethodError: undefined method `user_service'
 _validation
 ```
 
+### UseCase
+
+UseCases define the interface for the end user who interacts with the system.
+
+#### Examples
+
+```ruby
+require 'rohbau/use_case'
+
+module UserService
+  class CreateUser < Rohbau::UseCase
+    def initialize(request, user_data)
+      super(request)
+      @user_data = user_data
+    end
+
+    def call
+      service(:user_service).create(@user_data)
+    end
+  end
+end
+
+```
+
+```ruby
+require 'user_service'
+
+# Boot up user service
+UserService::RuntimeLoader.new
+
+request = UserService::Request.new
+
+UserService::CreateUser.new(request, {:nickname => 'Bob'}).call # => 'Created user Bob'
+
+```
+
 ### EventTube
 
 The `EventTube` implements the `Observer` pattern. You can subscribe to events and publish them.
