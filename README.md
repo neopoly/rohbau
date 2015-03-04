@@ -173,6 +173,18 @@ MyServiceFactory.missing_dependencies # => []
 
 ```
 
+### Request
+
+tbd
+
+### Entity
+
+tbd
+
+### Gateway
+
+tbd
+
 ### UseCase
 
 UseCases define the interface for the end user who interacts with the system.

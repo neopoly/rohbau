@@ -83,6 +83,18 @@ Validate registered dependencies
 include_example 'service_factory_validation'
 ```
 
+### Request
+
+tbd
+
+### Entity
+
+tbd
+
+### Gateway
+
+tbd
+
 ### UseCase
 
 UseCases define the interface for the end user who interacts with the system.
