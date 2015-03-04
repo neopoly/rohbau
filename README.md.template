@@ -143,7 +143,7 @@ include_example 'use_case'
 
 ### EventTube
 
-The `EventTube` implements the `Observer` pattern. You can subscribe to events and publish them.
+The `EventTube` implements the `Publish-subscribe` pattern. You can subscribe to events and publish them.
 
 #### Examples
 

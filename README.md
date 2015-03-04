@@ -309,7 +309,7 @@ UserService::CreateUser.new(request, {:nickname => 'Bob'}).call # => 'Created us
 
 ### EventTube
 
-The `EventTube` implements the `Observer` pattern. You can subscribe to events and publish them.
+The `EventTube` implements the `Publish-subscribe` pattern. You can subscribe to events and publish them.
 
 #### Examples
 
