@@ -59,5 +59,4 @@ describe Rohbau::EventTube do
       assert_equal [], @calls
     end
   end
-
 end
