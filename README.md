@@ -243,10 +243,26 @@ bob == other_bob # => true
 
 Provides an interface to persist entities.
 
-`examples/user_service/user_gatway.rb`
+`examples/user_service/user_gateway.rb`
 
 ```ruby
-include_example 'user_service/user_gatway'
+require 'user_service/event_tube'
+require 'user_entity'
+require 'rohbau/default_memory_gateway'
+
+module UserService
+  class UserGateway < Rohbau::DefaultMemoryGateway
+    def create(user_data)
+      user = User.new(user_data)
+      add(user)
+      EventTube.publish :user_registered, UserRegisteredEvent.new(user)
+    end
+
+    class UserRegisteredEvent < Struct.new(:user)
+    end
+  end
+end
+
 ```
 
 ### UseCase

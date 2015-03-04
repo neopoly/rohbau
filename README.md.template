@@ -117,10 +117,10 @@ include_example 'user_entity'
 
 Provides an interface to persist entities.
 
-`examples/user_service/user_gatway.rb`
+`examples/user_service/user_gateway.rb`
 
 ```ruby
-include_example 'user_service/user_gatway'
+include_example 'user_service/user_gateway'
 ```
 
 ### UseCase
