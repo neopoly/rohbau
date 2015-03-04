@@ -2,6 +2,11 @@ require 'rohbau/entity'
 
 class User < Rohbau::Entity
   attributes :nickname
+
+  def initialize(user_data = {})
+    self.nickname = user_data[:nickname]
+    super()
+  end
 end
 
 bob = User.new
