@@ -53,7 +53,8 @@ By this a place is made where for example memories for in-memory gateway backend
 Inject a user service to your application
 
 ```ruby
-require 'user_service'
+require 'rohbau/runtime'
+require 'rohbau/runtime_loader'
 
 module MyApplication
   class RuntimeLoader < Rohbau::RuntimeLoader
@@ -65,6 +66,29 @@ module MyApplication
   class Runtime < Rohbau::Runtime
   end
 end
+
+```
+
+```ruby
+require 'rohbau/runtime'
+require 'rohbau/runtime_loader'
+
+module UserService
+  class RuntimeLoader < Rohbau::RuntimeLoader
+    def initialize
+      super(Runtime)
+    end
+  end
+
+  class Runtime < Rohbau::Runtime
+  end
+end
+
+```
+
+```ruby
+require 'my_application'
+require 'user_service/runtime'
 
 # Register user service on my application runtime
 MyApplication::Runtime.register :user_service, UserService::RuntimeLoader
@@ -169,6 +193,12 @@ UseCases define the interface for the end user who interacts with the system.
 require 'rohbau/use_case'
 
 module UserService
+  def self.create(user_data)
+    print "Created user #{user_data[:nickname]}"
+  end
+end
+
+module UserService
   class CreateUser < Rohbau::UseCase
     def initialize(request, user_data)
       super(request)
@@ -184,7 +214,9 @@ end
 ```
 
 ```ruby
-require 'user_service'
+require 'user_service/runtime'
+require 'user_service/request'
+require 'user_service/create_user_use_case'
 
 # Boot up user service
 UserService::RuntimeLoader.new
@@ -202,6 +234,15 @@ The `EventTube` implements the `Observer` pattern. You can subscribe to events a
 #### Examples
 
 ```ruby
+class EmailService
+  def self.send_user_registration_email_to(user)
+    print "Send out email to #{user[:nickname]}"
+  end
+end
+
+```
+
+```ruby
 require 'rohbau/event_tube'
 
 module UserRegister
@@ -215,18 +256,6 @@ module UserRegister
   class UserRegisteredEvent < Struct.new(:user)
   end
 end
-
-class EmailService
-  def self.send_user_registration_email_to(user)
-    print "Send out email to #{user[:nickname]}"
-  end
-end
-
-UserRegister::EventTube.subscribe :user_registered do |event|
-  EmailService.send_user_registration_email_to event.user # => 'Send out email to Bob'
-end
-
-UserRegister.create_user({:nickname => 'Bob'})
 
 ```
 

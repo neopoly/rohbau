@@ -53,6 +53,14 @@ By this a place is made where for example memories for in-memory gateway backend
 Inject a user service to your application
 
 ```ruby
+include_example my_application
+```
+
+```ruby
+include_example user_service/runtime
+```
+
+```ruby
 include_example runtime
 ```
 
@@ -96,7 +104,11 @@ The `EventTube` implements the `Observer` pattern. You can subscribe to events a
 #### Examples
 
 ```ruby
-include_example event_tube
+include_example email_service/email_service
+```
+
+```ruby
+include_example user_service/event_tube
 ```
 
 ## Build README
