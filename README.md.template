@@ -103,7 +103,13 @@ include_example 'user_service/request'
 
 ### Entity
 
-tbd
+Entities are low level, logic-less, data structures. 
+
+`examples/user_entity.rb`
+
+```ruby
+include_example 'user_entity'
+```
 
 ### Gateway
 
