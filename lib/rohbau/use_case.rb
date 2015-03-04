@@ -1,7 +1,6 @@
 require 'bound'
 
 module Rohbau
-
   class UseCase
 
     def self.call(request, input = nil)
@@ -20,6 +19,6 @@ module Rohbau
     def service(service_name)
       @request.services.public_send service_name
     end
-  end
 
+  end
 end
