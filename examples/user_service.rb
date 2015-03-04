@@ -2,7 +2,7 @@ require 'rohbau/runtime'
 require 'rohbau/runtime_loader'
 require 'rohbau/service_factory'
 require 'rohbau/request'
-require 'rohbau/use_case'
+require 'user_service/create_user_use_case'
 
 module UserService
   def self.create(user_data)
@@ -37,19 +37,6 @@ module UserService
 
     def build_service_factory
       ServiceFactory.new(@runtime)
-    end
-  end
-end
-
-module UserService
-  class CreateUser < Rohbau::UseCase
-    def initialize(request, user_data)
-      super(request)
-      @user_data = user_data
-    end
-
-    def call
-      service(:user_service).create(@user_data)
     end
   end
 end
