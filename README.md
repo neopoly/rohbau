@@ -24,7 +24,7 @@
 
 ## Description
 
-Rohbau provides a set of patterns used in Domain Driven Design.
+_Rohbau_ provides a set of patterns used in Domain Driven Design.
 
 ## Installation
 
@@ -187,7 +187,7 @@ tbd
 
 ### UseCase
 
-UseCases define the interface for the end user who interacts with the system.
+`UseCases` define the interface for the end user who interacts with the system.
 
 #### Examples
 
@@ -263,7 +263,7 @@ end
 
 ## Build README
 
-Make changes to README.md.template, not to README.md
+Make changes to `README.md.template`, not to `README.md`
 
 Include examples with
 
@@ -277,7 +277,7 @@ Build README.md with
   ./bin/build_readme
 ```
 
-Always commit README.md.template and README.md together.
+Always commit `README.md.template` and `README.md` together.
 
 ## Contributing
 
