@@ -64,7 +64,7 @@ include_example 'my_application'
 include_example 'user_service/runtime'
 ```
 
-`examples/user_service/runtime.rb`
+`examples/runtime.rb`
 
 ```ruby
 include_example 'runtime'
