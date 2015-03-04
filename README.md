@@ -163,24 +163,14 @@ require 'rohbau/service_factory'
 
 MyServiceFactory = Class.new(Rohbau::ServiceFactory)
 
-user_service_1 = Struct.new(:users).new([:alice, :bob])
-user_service_2 = Struct.new(:users).new([:jim, :kate])
+MyServiceFactory.external_dependencies :user_service
+MyServiceFactory.missing_dependencies # => [:user_service] 
+MyServiceFactory.external_dependencies_complied? # => false
 
-runtime = Object.new
-registry = MyServiceFactory.new(runtime)
+MyServiceFactory.register(:user_service) { Object.new } # => :user_service 
+MyServiceFactory.external_dependencies_complied? # => true 
+MyServiceFactory.missing_dependencies # => [] 
 
-MyServiceFactory.register(:user_service) { user_service_1 }
-registry.user_service.users # => [:alice, :bob]
-
-MyServiceFactory.register(:user_service) { user_service_2 }
-registry.user_service.users # => [:jim, :kate]
-
-MyServiceFactory.unregister(:user_service)
-registry.user_service.users # => [:alice, :bob]
-
-MyServiceFactory.unregister(:user_service)
-registry.user_service # => NoMethodError: undefined method `user_service'
-_validation
 ```
 
 ### UseCase
@@ -266,7 +256,7 @@ Make changes to README.md.template, not to README.md
 Include examples with
 
 ```bash
-include_example example_file_name
+include_example 'example_file_name'
 ```
 
 Build README.md with

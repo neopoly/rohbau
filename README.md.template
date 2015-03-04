@@ -53,15 +53,15 @@ By this a place is made where for example memories for in-memory gateway backend
 Inject a user service to your application
 
 ```ruby
-include_example my_application
+include_example 'my_application'
 ```
 
 ```ruby
-include_example user_service/runtime
+include_example 'user_service/runtime'
 ```
 
 ```ruby
-include_example runtime
+include_example 'runtime'
 ```
 
 ### ServiceFactory
@@ -74,13 +74,13 @@ It follows partly the service locator / registry pattern.
 Register and unregister default service and override with specific service.
 
 ```ruby
-include_example service_factory
+include_example 'service_factory'
 ```
 
 Validate registered dependencies
 
 ```ruby
-include_example service_factory_validation
+include_example 'service_factory_validation'
 ```
 
 ### UseCase
@@ -90,11 +90,11 @@ UseCases define the interface for the end user who interacts with the system.
 #### Examples
 
 ```ruby
-include_example user_service/create_user_use_case
+include_example 'user_service/create_user_use_case'
 ```
 
 ```ruby
-include_example use_case
+include_example 'use_case'
 ```
 
 ### EventTube
@@ -104,11 +104,11 @@ The `EventTube` implements the `Observer` pattern. You can subscribe to events a
 #### Examples
 
 ```ruby
-include_example email_service/email_service
+include_example 'email_service/email_service'
 ```
 
 ```ruby
-include_example user_service/event_tube
+include_example 'user_service/event_tube'
 ```
 
 ## Build README
@@ -118,7 +118,7 @@ Make changes to README.md.template, not to README.md
 Include examples with
 
 ```bash
-include_example example_file_name
+include_example 'example_file_name'
 ```
 
 Build README.md with
