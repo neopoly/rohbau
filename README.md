@@ -219,7 +219,12 @@ Entities are low level, logic-less, data structures.
 require 'rohbau/entity'
 
 class User < Rohbau::Entity
-  attributes :nickname
+  attributes :uid, :nickname
+
+  def initialize(user_data = {})
+    self.nickname = user_data[:nickname]
+    super()
+  end
 end
 
 bob = User.new
@@ -236,7 +241,13 @@ bob == other_bob # => true
 
 ### Gateway
 
-tbd
+Provides an interface to persist entities.
+
+`examples/user_service/user_gatway.rb`
+
+```ruby
+include_example 'user_service/user_gatway'
+```
 
 ### UseCase
 
@@ -248,12 +259,6 @@ tbd
 
 ```ruby
 require 'rohbau/use_case'
-
-module UserService
-  def self.create(user_data)
-    print "Created user #{user_data[:nickname]}"
-  end
-end
 
 module UserService
   class CreateUser < Rohbau::UseCase
@@ -297,7 +302,7 @@ The `EventTube` implements the `Observer` pattern. You can subscribe to events a
 ```ruby
 class EmailService
   def self.send_user_registration_email_to(user)
-    print "Send out email to #{user[:nickname]}"
+    print "Send out email to #{user.nickname}"
   end
 end
 
@@ -308,15 +313,8 @@ end
 ```ruby
 require 'rohbau/event_tube'
 
-module UserRegister
+module UserService
   class EventTube < Rohbau::EventTube
-  end
-
-  def self.create_user(user)
-    EventTube.publish :user_registered, UserRegisteredEvent.new(user)
-  end
-
-  class UserRegisteredEvent < Struct.new(:user)
   end
 end
 

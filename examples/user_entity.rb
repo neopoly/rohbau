@@ -1,7 +1,7 @@
 require 'rohbau/entity'
 
 class User < Rohbau::Entity
-  attributes :nickname
+  attributes :uid, :nickname
 
   def initialize(user_data = {})
     self.nickname = user_data[:nickname]
