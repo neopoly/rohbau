@@ -1,4 +1,6 @@
-require 'user_service'
+require 'user_service/runtime'
+require 'user_service/request'
+require 'user_service/create_user_use_case'
 
 # Boot up user service
 UserService::RuntimeLoader.new

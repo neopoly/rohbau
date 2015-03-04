@@ -1,15 +1,5 @@
-require 'user_service'
-
-module MyApplication
-  class RuntimeLoader < Rohbau::RuntimeLoader
-    def initialize
-      super(Runtime)
-    end
-  end
-
-  class Runtime < Rohbau::Runtime
-  end
-end
+require 'my_application'
+require 'user_service/runtime'
 
 # Register user service on my application runtime
 MyApplication::Runtime.register :user_service, UserService::RuntimeLoader
