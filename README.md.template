@@ -52,13 +52,19 @@ By this a place is made where for example memories for in-memory gateway backend
 
 Inject a user service to your application
 
+`examples/my_application.rb`
+
 ```ruby
 include_example 'my_application'
 ```
 
+`examples/user_service/runtime.rb`
+
 ```ruby
 include_example 'user_service/runtime'
 ```
+
+`examples/user_service/runtime.rb`
 
 ```ruby
 include_example 'runtime'
@@ -73,11 +79,15 @@ It follows partly the service locator / registry pattern.
 
 Register and unregister default service and override with specific service.
 
+`examples/user_service/service_factory.rb`
+
 ```ruby
 include_example 'service_factory'
 ```
 
 Validate registered dependencies
+
+`examples/user_service/service_factory_validation.rb`
 
 ```ruby
 include_example 'service_factory_validation'
@@ -101,9 +111,13 @@ tbd
 
 #### Examples
 
+`examples/user_service/create_user_use_case.rb`
+
 ```ruby
 include_example 'user_service/create_user_use_case'
 ```
+
+`examples/use_case.rb`
 
 ```ruby
 include_example 'use_case'
@@ -115,9 +129,13 @@ The `EventTube` implements the `Observer` pattern. You can subscribe to events a
 
 #### Examples
 
+`examples/email_service/email_service.rb`
+
 ```ruby
 include_example 'email_service/email_service'
 ```
+
+`examples/user_service/event_tube.rb`
 
 ```ruby
 include_example 'user_service/event_tube'

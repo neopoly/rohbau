@@ -52,6 +52,8 @@ By this a place is made where for example memories for in-memory gateway backend
 
 Inject a user service to your application
 
+`examples/my_application.rb`
+
 ```ruby
 require 'rohbau/runtime'
 require 'rohbau/runtime_loader'
@@ -69,6 +71,8 @@ end
 
 ```
 
+`examples/user_service/runtime.rb`
+
 ```ruby
 require 'rohbau/runtime'
 require 'rohbau/runtime_loader'
@@ -85,6 +89,8 @@ module UserService
 end
 
 ```
+
+`examples/user_service/runtime.rb`
 
 ```ruby
 require 'my_application'
@@ -131,6 +137,8 @@ It follows partly the service locator / registry pattern.
 
 Register and unregister default service and override with specific service.
 
+`examples/user_service/service_factory.rb`
+
 ```ruby
 require 'rohbau/service_factory'
 
@@ -157,6 +165,8 @@ registry.user_service # => NoMethodError: undefined method `user_service'
 ```
 
 Validate registered dependencies
+
+`examples/user_service/service_factory_validation.rb`
 
 ```ruby
 require 'rohbau/service_factory'
@@ -191,6 +201,8 @@ tbd
 
 #### Examples
 
+`examples/user_service/create_user_use_case.rb`
+
 ```ruby
 require 'rohbau/use_case'
 
@@ -215,6 +227,8 @@ end
 
 ```
 
+`examples/use_case.rb`
+
 ```ruby
 require 'user_service/runtime'
 require 'user_service/request'
@@ -235,6 +249,8 @@ The `EventTube` implements the `Observer` pattern. You can subscribe to events a
 
 #### Examples
 
+`examples/email_service/email_service.rb`
+
 ```ruby
 class EmailService
   def self.send_user_registration_email_to(user)
@@ -243,6 +259,8 @@ class EmailService
 end
 
 ```
+
+`examples/user_service/event_tube.rb`
 
 ```ruby
 require 'rohbau/event_tube'
