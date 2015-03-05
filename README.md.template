@@ -177,6 +177,23 @@ rake build_readme
 
 Always commit `README.md.template` and `README.md` together.
 
+## Examples
+
+Run all examples via
+
+```bash
+rake examples
+```
+
+To verify all examples run:
+
+```bash
+rake examples:verify
+```
+
+Note: Examples will be verified during CI run.
+
+
 ## Contributing
 
 1. Fork it
