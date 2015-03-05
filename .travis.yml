@@ -12,6 +12,7 @@ rvm:
   - jruby-19mode # JRuby in 1.9 mode
 env:
   global:
+    - CODECLIMATE_REPO_TOKEN=bff5110004e542a78ce5dd5fb7f154ac06cdc5a564d54957656a56e79bf1a031
     - JRUBY_OPTS='--dev -J-Xmx1024M'
 matrix:
   fast_finish: true
