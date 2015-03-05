@@ -1,1 +1,3 @@
-cat README.md.template | etc/build_readme.rb > README.md
+#!/bin/bash
+
+echo 'Please use `rake build_readme`'
