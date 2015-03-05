@@ -172,7 +172,7 @@ include_example 'example_file_name'
 Build README.md with
 
 ```bash
-  ./bin/build_readme
+rake build_readme
 ```
 
 Always commit `README.md.template` and `README.md` together.
