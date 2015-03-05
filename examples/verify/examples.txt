@@ -1,0 +1,31 @@
+examples/email_service/email_service.rb
+
+examples/event_tube.rb
+Send out email to Bob
+examples/my_application.rb
+
+examples/runtime.rb
+
+examples/service_factory.rb
+examples/service_factory.rb:21:in `<main>': undefined method `user_service' for #<MyServiceFactory:0xa12e7b0> (NoMethodError)
+
+examples/service_factory_validation.rb
+
+examples/use_case.rb
+
+examples/user_entity.rb
+
+examples/user_service.rb
+
+examples/user_service/create_user_use_case.rb
+
+examples/user_service/event_tube.rb
+
+examples/user_service/request.rb
+
+examples/user_service/runtime.rb
+
+examples/user_service/service_factory.rb
+
+examples/user_service/user_gateway.rb
+
