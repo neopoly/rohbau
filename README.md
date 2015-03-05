@@ -90,7 +90,7 @@ end
 
 ```
 
-`examples/user_service/runtime.rb`
+`examples/runtime.rb`
 
 ```ruby
 require 'my_application'
