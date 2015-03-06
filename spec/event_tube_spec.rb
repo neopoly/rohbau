@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'rohbau/event_tube'
 
 describe Rohbau::EventTube do
-  let(:tube)        { Class.new(Rohbau::EventTube)}
+  let(:tube)        { Class.new(Rohbau::EventTube) }
   let(:event_class) { Struct.new(:arg1) }
   let(:event)       { event_class.new(22) }
 
@@ -41,7 +41,7 @@ describe Rohbau::EventTube do
 
     it 'processes them all on publish' do
       tube.publish :my_event, event
-      assert_equal [event,event], @calls
+      assert_equal [event, event], @calls
     end
   end
 

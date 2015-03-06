@@ -18,7 +18,6 @@ module Rohbau
     end
 
     def add(entity)
-
       if option?(:uid_generation)
         validate :add, entity
 
@@ -154,8 +153,8 @@ module Rohbau
         ensure_uid_exists!(uid)
       end
 
-
       private
+
       def ensure_uid!(uid)
         if uid.nil?
           raise argument_error('uid is missing')

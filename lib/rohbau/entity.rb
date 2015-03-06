@@ -1,11 +1,9 @@
 module Rohbau
-
   class Entity
     class << self; attr_accessor :__attributes__ end
     def self.attributes(*attributes)
       @__attributes__ ||= []
       @__attributes__ += attributes
-
 
       predicate_attributes = attributes.select do |attr|
         attr =~ /\?$/
@@ -33,9 +31,9 @@ module Rohbau
     end
 
     protected
+
     def __attributes__
       self.class.__attributes__ || []
     end
   end
-
 end

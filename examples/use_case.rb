@@ -7,4 +7,4 @@ UserService::RuntimeLoader.new
 
 request = UserService::Request.new
 
-UserService::CreateUser.new(request, {:nickname => 'Bob'}).call # => 'Created user Bob'
+UserService::CreateUser.new(request, :nickname => 'Bob').call # => 'Created user Bob'

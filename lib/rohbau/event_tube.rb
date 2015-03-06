@@ -18,7 +18,7 @@ module Rohbau
 
     class SubscriptionHandler
       def initialize
-        @subscriptions = Hash.new do |h,k|
+        @subscriptions = Hash.new do |h, k|
           h[k] = []
         end
       end

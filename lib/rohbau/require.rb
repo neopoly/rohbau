@@ -15,6 +15,5 @@ module Rohbau
       files = File.expand_path("../#{dir}/*.rb", file)
       Dir[files].each { |f| require f }
     end
-
   end
 end

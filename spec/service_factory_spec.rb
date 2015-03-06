@@ -2,7 +2,6 @@ require 'spec_helper'
 require 'rohbau/service_factory'
 
 describe Rohbau::ServiceFactory do
-
   let(:factory_class) do
     Class.new(Rohbau::ServiceFactory)
   end
@@ -38,13 +37,13 @@ describe Rohbau::ServiceFactory do
       end
 
       it 'is not reached with partially registers services' do
-        factory_class.register(:service1) {  }
+        factory_class.register(:service1) {}
         refute_predicate factory_class, :external_dependencies_complied?
       end
 
       it 'is reached if all required dependencies are registered' do
-        factory_class.register(:service1) {  }
-        factory_class.register(:service2) {  }
+        factory_class.register(:service1) {}
+        factory_class.register(:service2) {}
         assert_predicate factory_class, :external_dependencies_complied?
       end
     end
@@ -72,7 +71,7 @@ describe Rohbau::ServiceFactory do
       it "can unregister services" do
         factory_class.unregister(:test_service)
 
-        assert_raises(NoMethodError) {factory.test_service}
+        assert_raises(NoMethodError) { factory.test_service }
       end
 
       describe "with more than one service registered" do
@@ -99,11 +98,9 @@ describe Rohbau::ServiceFactory do
           factory_class.unregister(:test_service)
           factory_class.unregister(:test_service)
 
-          assert_raises(NoMethodError) {factory.test_service}
+          assert_raises(NoMethodError) { factory.test_service }
         end
       end
     end
-
   end
-
 end

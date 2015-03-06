@@ -2,7 +2,6 @@ require 'spec_helper'
 require 'rohbau/shared_spec'
 
 describe Rohbau::SharedSpec do
-
   before do
     Rohbau::SharedSpec::SpecIndex.reset
   end
@@ -40,5 +39,4 @@ describe Rohbau::SharedSpec do
       assert_equal nil,             index.get(:something)
     end
   end
-
 end

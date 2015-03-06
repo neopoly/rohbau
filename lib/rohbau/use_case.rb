@@ -2,7 +2,6 @@ require 'bound'
 
 module Rohbau
   class UseCase
-
     def self.call(request, input = nil)
       args = [request]
       args << input if input
@@ -19,6 +18,5 @@ module Rohbau
     def service(service_name)
       @request.services.public_send service_name
     end
-
   end
 end

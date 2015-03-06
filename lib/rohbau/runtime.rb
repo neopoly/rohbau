@@ -46,7 +46,6 @@ module Rohbau
     def after_termination
     end
 
-
     def initialize_plugins
       self.class.plugins.each do |name, plugin_class|
         instance_variable_set :"@#{name}", plugin_class.new
@@ -89,6 +88,5 @@ module Rohbau
         @handling_plugin = nil
       end
     end
-
   end
 end

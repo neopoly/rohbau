@@ -2,7 +2,6 @@ require 'rohbau/index'
 
 module Rohbau
   class DefaultMemoryGateway
-
     def initialize(memory = Index.new, services = {})
       @memory = memory
       @services = services
@@ -73,6 +72,5 @@ module Rohbau
     def gateway_for_entity(entity_name)
       service(:"#{entity_name}_gateway")
     end
-
   end
 end

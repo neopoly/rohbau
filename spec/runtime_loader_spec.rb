@@ -60,7 +60,6 @@ describe Rohbau::RuntimeLoader do
     assert_same instance, my_runtime_loader.instance
   end
 
-
   def inject_mocked_instance_into_my_runtime_loader
     instance = MiniTest::Mock.new
 

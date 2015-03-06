@@ -1,6 +1,5 @@
 module Rohbau
   module Application
-
     class RuntimeWrapper
       def self.wrap(&constructor)
         wrapper = Class.new do
@@ -37,7 +36,7 @@ module Rohbau
     end
 
     def domain_requests
-      domains.map{|d| d.const_get :Request }
+      domains.map { |d| d.const_get :Request }
     end
 
     def use_case_domains
@@ -54,7 +53,6 @@ module Rohbau
       end
 
       domains.inject([]) do |use_cases, domain|
-
         if domain.const_defined?('UseCases')
           use_case_namespace = domain.const_get('UseCases')
           use_case_namespace.constants.each do |use_case_class_name|
@@ -65,6 +63,5 @@ module Rohbau
         use_cases
       end
     end
-
   end
 end

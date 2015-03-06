@@ -1,7 +1,6 @@
 module Rohbau
   module Minitest
     module Exclude
-
       class SpecNuker
         def initialize(description_name, description_caller)
           spec_class = find_spec_class(description_caller)
@@ -39,20 +38,15 @@ module Rohbau
             description_class.name == @description_name
           end
         end
-
       end
-
     end
   end
 end
 
 module MiniTest::Spec::DSL
-
-
   # only single nesting in one describe block is supported
   # for now
   def exclude(it_desc, reason = "")
     Rohbau::Minitest::Exclude::SpecNuker.new(self.name, self).nuke!(it_desc)
   end
-
 end

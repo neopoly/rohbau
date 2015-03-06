@@ -3,7 +3,6 @@ require 'rohbau/minitest/exclude'
 
 module Rohbau
   class SharedSpec < Proc
-
     def self.for(name, &block)
       shared_specs[name] = Proc.new(&block)
     end
@@ -44,4 +43,3 @@ module Rohbau
     end
   end
 end
-

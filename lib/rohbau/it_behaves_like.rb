@@ -2,7 +2,6 @@ require 'minitest/spec'
 
 module Rohbau
   module ItBehavesLike
-
     def get_shared_example(spec_name)
       Rohbau::SharedSpec::SpecIndex.get spec_name
     end
@@ -17,7 +16,6 @@ module Rohbau
 
       instance_eval(&shared_example)
     end
-
   end
 end
 

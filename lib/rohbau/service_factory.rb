@@ -32,6 +32,5 @@ module Rohbau
     def runtime
       @runtime
     end
-
   end
 end

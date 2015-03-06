@@ -6,4 +6,4 @@ UserService::EventTube.subscribe :user_registered do |event|
   EmailService.send_user_registration_email_to event.user # => 'Send out email to Bob'
 end
 
-UserService::UserGateway.new.create({:nickname => 'Bob'})
+UserService::UserGateway.new.create(:nickname => 'Bob')

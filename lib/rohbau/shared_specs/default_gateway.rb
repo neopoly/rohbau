@@ -1,7 +1,6 @@
 module Rohbau
   module SharedSpecs
     DefaultGateway = Proc.new do
-
       describe 'add' do
         it 'inserts an entity' do
           subject.add entity
@@ -71,7 +70,6 @@ module Rohbau
       end
 
       describe 'all' do
-
         it 'returns an empty array' do
           assert_equal [], subject.all
         end
@@ -83,7 +81,6 @@ module Rohbau
 
           assert_equal entities, subject.all
         end
-
       end
 
       describe 'get' do
@@ -299,7 +296,6 @@ module Rohbau
           refute_includes subject.all.map(&:uid), uid
         end
       end
-
     end
   end
 end
