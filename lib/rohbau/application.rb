@@ -41,7 +41,7 @@ module Rohbau
 
     def use_case_domains
       domains.select do |domain|
-        domain.const_defined?('UseCases')
+        domain.const_defined?(:UseCases)
       end
     end
 
@@ -53,10 +53,10 @@ module Rohbau
       end
 
       domains.inject([]) do |use_cases, domain|
-        if domain.const_defined?('UseCases')
-          use_case_namespace = domain.const_get('UseCases')
+        if domain.const_defined?(:UseCases)
+          use_case_namespace = domain.const_get(:UseCases)
           use_case_namespace.constants.each do |use_case_class_name|
-            use_cases << use_case_namespace::const_get(use_case_class_name)
+            use_cases << use_case_namespace.const_get(use_case_class_name)
           end
         end
 
