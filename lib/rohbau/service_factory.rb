@@ -5,7 +5,7 @@ module Rohbau
     include Rohbau::Registry
 
     def initialize(runtime)
-      raise "No Runtime instanciated" unless runtime
+      raise "No Runtime instantiated" unless runtime
       @runtime = runtime
     end
 

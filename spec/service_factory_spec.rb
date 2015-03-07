@@ -14,7 +14,7 @@ describe Rohbau::ServiceFactory do
     Object.new
   end
 
-  it 'needs a runtime instance to get instanciated' do
+  it 'needs a runtime instance to get instantiated' do
     raised = assert_raises RuntimeError do
       factory_class.new(nil)
     end

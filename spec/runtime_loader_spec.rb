@@ -52,7 +52,7 @@ describe Rohbau::RuntimeLoader do
     end
   end
 
-  it 'does not instanciate twice' do
+  it 'does not instantiate twice' do
     instance = my_runtime_loader.instance
 
     my_runtime_loader.new(ExampleClass)
