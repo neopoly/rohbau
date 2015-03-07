@@ -12,7 +12,7 @@ module Rohbau
     protected
 
     def build_service_factory
-      raise NotImplementedError, "Please provide #{self.class}#build_service_factory"
+      raise NotImplementedError
     end
 
     def runtime
