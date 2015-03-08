@@ -14,13 +14,11 @@ module Rohbau
 
     module ExternalInterface
       def register(service_name, &constructor)
-        registrations << service_name
         implementations[service_name] << constructor
-        this = self
 
-        this.send :define_method, service_name do
+        define_method service_name do
           cache service_name do
-            instance_eval(&this.implementations[service_name].last)
+            instance_eval(&self.class.implementations[service_name].last)
           end
         end
       end
@@ -29,12 +27,12 @@ module Rohbau
         implementations[service_name].pop
 
         if implementations[service_name].empty?
-          self.send :remove_method, service_name
+          remove_method service_name
         end
       end
 
       def registrations
-        @registrations ||= []
+        implementations.keys
       end
 
       def implementations
