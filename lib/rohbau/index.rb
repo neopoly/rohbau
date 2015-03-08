@@ -174,7 +174,7 @@ module Rohbau
       end
 
       def ensure_entity_has_uid!(entity)
-        if !entity.uid
+        unless entity.uid
           raise argument_error('entity has no uid', entity)
         end
       end
@@ -186,13 +186,13 @@ module Rohbau
       end
 
       def ensure_entity_exists!(entity)
-        if !@memory.has_uid?(entity.uid)
+        unless @memory.has_uid?(entity.uid)
           raise argument_error('entity is unknown', entity)
         end
       end
 
       def ensure_uid_exists!(uid)
-        if !@memory.has_uid?(uid)
+        unless @memory.has_uid?(uid)
           raise argument_error('uid is unknown', uid)
         end
       end
