@@ -128,7 +128,7 @@ module Rohbau
         it 'adds a copy as stored entity on add' do
           uid = subject.add(entity).uid
 
-          entity.uid = uid  + '1'
+          entity.uid = uid + '1'
 
           assert_equal uid, subject.get(uid).uid
         end
@@ -170,7 +170,7 @@ module Rohbau
           results = subject.bulk_add(entities)
           uid = results[0].uid
 
-          entity.uid = uid  + '1'
+          entity.uid = uid + '1'
 
           assert_equal uid, subject.get(uid).uid
         end
