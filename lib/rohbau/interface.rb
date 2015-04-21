@@ -106,19 +106,20 @@ module Rohbau
       end
 
       def stub_use_case(use_case, type, result)
-        use_case = Object.const_get "#{use_case}::#{type}"
+        result_class = use_case.const_get type
 
-        return use_case.new if result == true
-        use_case.new(result)
+        return result_class.new if result == true
+        result_class.new(result)
       end
 
       def get_input_for(use_case, args)
-        use_case = Object.const_get "#{use_case}::Input"
-        use_case.new(args)
+        use_case.const_get(:Input).new(args)
       end
 
       def get_use_case_for(use_case, args)
-        Object.const_get "#{domain}::UseCases::#{use_case}"
+        [domain, :UseCases, use_case].inject(Object) do |ns, const|
+          ns.const_get(const)
+        end
       end
 
       def domain

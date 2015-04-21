@@ -12,7 +12,7 @@ module Rohbau
 
     def self.requests
       @requests ||= Hash.new do |hash, domain|
-        hash[domain] = Object.const_get("#{domain}::Request").new
+        hash[domain] = Object.const_get(domain).const_get(:Request).new
       end
     end
   end
