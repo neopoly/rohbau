@@ -174,12 +174,12 @@ require 'rohbau/service_factory'
 MyServiceFactory = Class.new(Rohbau::ServiceFactory)
 
 MyServiceFactory.external_dependencies :user_service
-MyServiceFactory.missing_dependencies # => [:user_service] 
+MyServiceFactory.missing_dependencies # => [:user_service]
 MyServiceFactory.external_dependencies_complied? # => false
 
-MyServiceFactory.register(:user_service) { Object.new } # => :user_service 
-MyServiceFactory.external_dependencies_complied? # => true 
-MyServiceFactory.missing_dependencies # => [] 
+MyServiceFactory.register(:user_service) { Object.new } # => :user_service
+MyServiceFactory.external_dependencies_complied? # => true
+MyServiceFactory.missing_dependencies # => []
 
 ```
 
@@ -211,7 +211,7 @@ end
 
 ### Entity
 
-Entities are low level, logic-less, data structures. 
+Entities are low level, logic-less, data structures.
 
 `examples/user_entity.rb`
 
@@ -271,6 +271,8 @@ end
 
 #### Examples
 
+Define a class that inherits from `Rohbau::UseCase` which has a `#call` method:
+
 `examples/user_service/create_user_use_case.rb`
 
 ```ruby
@@ -291,6 +293,8 @@ end
 
 ```
 
+And call the CreateUser use case as follows:
+
 `examples/use_case.rb`
 
 ```ruby
@@ -302,9 +306,198 @@ require 'user_service/create_user_use_case'
 UserService::RuntimeLoader.new
 
 request = UserService::Request.new
-
 UserService::CreateUser.new(request, {:nickname => 'Bob'}).call # => 'Created user Bob'
 
+```
+
+Alternately, use cases can be called using `Interface`, which is detailed in the next section.
+
+### Interface
+
+`Interface` allows for simpler and more semantic use case calling, with the additional benefit of fine grain control of return values and spy-like access in a test context.  
+
+**Please note**: `Interface` requires an `Input` class in your use case, as well as a `Success` class if you are using the stub features.
+
+In a nutshell, `Interface` allows your use case calls to go from this:
+
+```ruby
+require 'user_service/runtime'
+require 'user_service/request'
+require 'user_service/create_user_use_case'
+
+# Boot up user service
+UserService::RuntimeLoader.new
+
+request = UserService::Request.new
+input = {
+  :user_data => {
+    :nickname => 'Bob'
+  }
+}
+UserService::CreateUser.new(request, input).call
+
+```
+
+To this:
+
+```ruby
+require 'rohbau/interface'
+require 'user_service/create_user_use_case'
+
+interface = Rohbau::Interface.new
+interface.user_service :create_user, :user_data => {
+  :nickname => 'Bob'
+}
+```
+
+This increased simplicity is very helpful, but the majority of `Interface`'s usefulness becomes accessible while testing. Assume the following use case:
+
+```ruby
+module UserService
+  module UseCases
+    class CreateUser
+      Input = Bound.required :user_data
+      Success = Bound.required :user_uid
+      Error = Bound.required :message
+
+      def initialize(request, input)
+        @request = request
+        @user_data = input.user_data
+      end
+
+      def call
+        result = service(:user_service).create(@user_data)
+
+        if result.nil?
+          Error.new :message => "Something went wrong"
+        else
+          Success.new :user_uid => "uid_for_#{user_data.nickname}"
+        end
+      end
+    end
+  end
+end
+```
+#### Stubbing use case return values
+
+Let's assume this use case will be called, along with many other use cases, by the frontend framework of your choosing.  
+
+Frontend tests should be implemented with the actual objects they would use in production, but since test isolation is an important concept in DDD, the `UserService` domain, which is outside of the scope of the frontend, should never actually be called.
+
+Beyond this, we will also want to stub return values to create the various test cases we may have - when there is no user present, for example.  
+
+These requirements can be realized by passing the following keys to your use case:
+
+ * `:stub_result`
+ When the `stub_result` key is present, its value will be passed to the called use case and returned in subsequent calls to that same use case as a `Success` object.
+ * `:stub_type`
+ Much like the `stub_result` key, the `stub_type` key allows the type of return value to be overwritten, provided, of course, that it is a type which is defined by your use case.
+
+```ruby
+require 'rohbau/interface'
+
+describe 'stubbing use case return values' do
+  let(:interface) { Rohbau::Interface.new }
+
+  it 'returns subsequent calls to the same use case as stubs' do
+    interface.user_service :create_user, :stub_result => {
+      :user_data => { :user_uid => "definitely NOT bob's uid" }
+    }
+
+    result = interface.user_service :create_user, :user_data => {
+      :nickname => 'bob'
+    }
+
+    assert_kind_of UserService::UseCases::CreateUser::Success, result
+    assert_equal "definitely NOT bob's uid", result.user_uid
+  end
+
+  it 'can also return other result types' do
+    interface.user_service :create_user,
+      :stub_type => :Error,
+      :stub_result => {
+        :message => "error"
+      }
+
+    result = interface.user_service :create_user
+
+    assert_kind_of UserService::UseCases::CreateUser::Error, result
+    assert_equal 'error', result.message
+  end
+end
+```
+#### Test spying
+
+Sometimes it's helpful to look into the use case and see some details about how it has been called.  There are two methods to this end, each of which returns a hash with keys corresponding to each use case which has been called:
+
+ * `interface.calls` is further keyed by argument and returns the value passed to the given argument.
+ * `interface.call_count` returns the number of times a given use case has been called.
+
+```ruby
+require 'rohbau/interface'
+
+describe 'spying on tests' do
+  let(:interface) { Rohbau::Interface.new }
+
+  it 'records passed arguments by use_case' do
+    interface.user_service :create_user, :user_data => {
+      :nickname => 'bob'
+    }
+
+    result = interface.calls[:create_user][:user_uid]
+
+    assert_equal "23", result
+  end
+
+  it 'records number of unstubbed calls to each use_case' do
+    interface.user_service :create_user, :stub_result => {
+      :user_data => { :user_uid => 'something else' }
+    }
+
+    interface.user_service :create_user, :user_data => {
+      :nickname => 'bob'
+    }
+
+    interface.user_service :create_user, :user_data => {
+      :nickname => 'bob'
+    }
+
+    assert_equal 2, interface.call_count[:create_user]
+  end
+end
+```
+
+#### Cleaning up
+
+`Interface` provides the following two convenience methods for cleaning up your test environment:
+
+ * `interface.clear_stubs` does what it says on the tin - All recorded arguments, call counts, stubbed results and stubbed types are cleared.
+ * `interface.clear_cached_requests` empties the request cache.
+
+```ruby
+require 'rohbau/interface'
+
+let(:interface) { Rohbau::Interface.new }
+it 'can clear all stubbed results' do
+  interface.user_service :create_user, :stub_result => {
+    :user_data => { :user_uid => 'something else' }
+  }
+
+  result = interface.user_service :create_user, :user_data => {
+    :nickname => 'bob'
+  }
+
+  assert_equal 'something else', result.user_uid
+
+  interface.clear_stubs
+
+  result = interface.user_service :create_user, :user_data => {
+    :nickname => 'bob'
+  }
+
+  refute_equal 'something else', result.user_uid
+  assert_equal 'uid_for_bob', result.user_uid
+end
 ```
 
 ### EventTube
