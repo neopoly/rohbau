@@ -6,6 +6,9 @@ Metrics/LineLength:
     - rohbau.gemspec
     - examples/**/*.rb
 
+Style/AlignParameters:
+  EnforcedStyle: with_fixed_indentation
+
 # Prefer foo: :bar
 Style/HashSyntax:
   EnforcedStyle: hash_rockets
