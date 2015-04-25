@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = [
     "Jakob Holderbaum",
     "Peter Suschlik",
-    "Dax Defranco",
+    "Dax",
     "Andreas Busold",
     "Jan Owiesniak"
   ]
