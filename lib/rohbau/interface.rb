@@ -73,15 +73,11 @@ module Rohbau
       use_case = args[0]
       input = args[1] || {}
       call_use_case(domain, use_case, input)
-    rescue NameError => e
-      msg = "You tried to call a use case from the #{domain} domain, " \
-        "but the following error occured: #{e.inspect}"
-      raise msg
     end
 
     class Caller
       def initialize(domain)
-        @domain = domain
+        @domain = validate_and_return!(domain)
       end
 
       def call(use_case, args, options = {})
@@ -120,6 +116,16 @@ module Rohbau
         [domain, :UseCases, use_case].inject(Object) do |ns, const|
           ns.const_get(const)
         end
+      end
+
+      def validate_and_return!(domain)
+        return domain if Object.const_defined?(domain)
+        raise ArgumentError, missing_domain_message(domain)
+      end
+
+      def missing_domain_message(domain)
+        "You tried to call a use case from the #{domain}, but that domain " \
+        "does not exist."
       end
 
       def domain

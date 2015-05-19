@@ -35,7 +35,7 @@ describe Rohbau::Interface do
   end
 
   it 'raises if the domain is unknown' do
-    assert_raises RuntimeError do
+    assert_raises ArgumentError do
       interface.really_fake_domain :equally_fake_use_case
     end
   end
