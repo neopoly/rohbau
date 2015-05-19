@@ -6,6 +6,10 @@ Metrics/LineLength:
     - rohbau.gemspec
     - examples/**/*.rb
 
+Metrics/ModuleLength:
+  Exclude:
+    - lib/rohbau/shared_specs/default_gateway.rb
+
 Style/AlignParameters:
   EnforcedStyle: with_fixed_indentation
 
