@@ -4,30 +4,26 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'rohbau/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "rohbau"
-  spec.version       = Rohbau::VERSION
-  spec.authors       = [
-    "Jakob Holderbaum",
-    "Peter Suschlik",
-    "Dax",
-    "Andreas Busold",
-    "Jan Owiesniak"
-  ]
-  spec.email         = [
-    "rohbau@jakob.io",
-    "ps@neopoly.de",
-    "dd@neopoly.de",
-    "ab@neopoly.de",
-    "jo@neopoly.de"
-  ]
-  spec.summary       = %q{Provides a set of patterns used in Domain Driven Design}
-  spec.homepage      = "http://www.neopoly.de/"
-  spec.license       = "MIT"
+  spec.name     = 'rohbau'
+  spec.version  = Rohbau::VERSION
 
-  spec.files         = `git ls-files`.split($/)
-  spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
-  spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
-  spec.require_paths = ["lib"]
+  spec.authors  = [
+    'Jakob Holderbaum',
+    'Peter Suschlik',
+    'Dax',
+    'Andreas Busold',
+    'Jan Owiesniak'
+  ]
+
+  spec.email = %w[rohbau@jakob.io ps@neopoly.de ab@neopoly.de jo@neopoly.de]
+
+  spec.summary        = %q{Provides a set of patterns used in Domain Driven Design}
+  spec.homepage       = 'http://www.neopoly.de/'
+  spec.license        = 'MIT'
+  spec.files          = `git ls-files`.split($/)
+  spec.executables    = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
+  spec.test_files     = spec.files.grep(%r{^(test|spec|features)/})
+  spec.require_paths  = ['lib']
 
   spec.add_dependency 'thread_safe', '~> 0.3'
   spec.add_dependency 'bound', '~> 2.1'
