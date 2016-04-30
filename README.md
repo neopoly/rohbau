@@ -344,7 +344,7 @@ To this:
 require 'rohbau/interface'
 require 'user_service/create_user_use_case'
 
-interface = Rohbau::Interface.new
+interface = Rohbau::Interface.instance
 interface.user_service :create_user, :user_data => {
   :nickname => 'Bob'
 }
@@ -397,7 +397,7 @@ These requirements can be realized by passing the following keys to your use cas
 require 'rohbau/interface'
 
 describe 'stubbing use case return values' do
-  let(:interface) { Rohbau::Interface.new }
+  let(:interface) { Rohbau::Interface.instance }
 
   it 'returns subsequent calls to the same use case as stubs' do
     interface.user_service :create_user, :stub_result => {
@@ -437,7 +437,7 @@ Sometimes it's helpful to look into the use case and see some details about how 
 require 'rohbau/interface'
 
 describe 'spying on tests' do
-  let(:interface) { Rohbau::Interface.new }
+  let(:interface) { Rohbau::Interface.instance }
 
   it 'records passed arguments by use_case' do
     interface.user_service :create_user, :user_data => {
@@ -477,7 +477,7 @@ end
 ```ruby
 require 'rohbau/interface'
 
-let(:interface) { Rohbau::Interface.new }
+let(:interface) { Rohbau::Interface.instance }
 it 'can clear all stubbed results' do
   interface.user_service :create_user, :stub_result => {
     :user_data => { :user_uid => 'something else' }

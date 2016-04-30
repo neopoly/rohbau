@@ -3,7 +3,11 @@ require 'rohbau/interface'
 require 'bound'
 
 describe Rohbau::Interface do
-  let(:interface) { Rohbau::Interface.new }
+  let(:interface) { Rohbau::Interface.instance }
+
+  after do
+    interface.clear_stubs
+  end
 
   module FakeDomain
     class Request
@@ -25,6 +29,10 @@ describe Rohbau::Interface do
         end
       end
     end
+  end
+
+  it 'is a singleton' do
+    assert interface === Rohbau::Interface.instance
   end
 
   it 'calls a use case' do
