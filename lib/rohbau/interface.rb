@@ -3,7 +3,9 @@ require_relative 'request_cache'
 
 module Rohbau
   class Interface
+    include Singleton
     include RequestCache
+
     def initialize
       @calls = Hash.new { |h, k| h[k] = nil }
       @call_count = Hash.new { |h, k| h[k] = 0 }
