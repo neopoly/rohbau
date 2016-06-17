@@ -1,8 +1,7 @@
 require 'spec_helper'
 require 'rohbau/entity'
 
-describe Rohbau::EventTube do
-
+describe Rohbau::Entity do
   describe 'class' do
     let(:entity_class) { Rohbau::Entity }
 
