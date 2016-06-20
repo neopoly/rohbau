@@ -2,18 +2,19 @@ require 'spec_helper'
 require 'rohbau/success'
 
 describe Rohbau::Success do
-  let(:subject) { Rohbau::Success.new }
+  let(:cls) { Rohbau::Success.required(:foo) }
+  let(:instance) { cls.new(:foo => 'bar') }
 
   it 'inherits from Bound' do
-    assert_includes subject.ancestors, Bound::StaticBoundClass
+    assert_includes cls.ancestors, Bound::StaticBoundClass
   end
 
   it 'is a success' do
-    assert_equal true, subject.success?
+    assert_equal true, instance.success?
   end
 
   it 'is no failure' do
-    assert_equal false, subject.failure?
+    assert_equal false, instance.failure?
   end
 
   it 'it does not polute Class' do
