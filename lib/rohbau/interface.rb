@@ -1,3 +1,4 @@
+require 'singleton'
 require_relative 'runtime'
 require_relative 'request_cache'
 
